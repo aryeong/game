@@ -1,16 +1,68 @@
+class Npc {
+  constructor(property) {
+    this.property = property; //quest.js에서 넘어온 property
+    this.parentNode = document.querySelector('.game');
+    this.el = document.createElement('div');
+    this.el.className = 'npc_box';
+    this.npcCrash = false;
+    this.talkOn = false;
+    this.modal = document.querySelector('.quest_modal');
+    this.questStart = false;
+    this.questEnd = false;
+
+    this.init();
+  }
+  init() {
+    let npcTalk =
+    `<div class="talk_box">
+      ${this.property.idleMessage}
+    </div>
+    <div class="npc"></div>`;
+
+    this.el.innerHTML = npcTalk;
+    this.el.style.left = this.property.positionX + 'px';
+    this.parentNode.appendChild(this.el);
+  }
+  position() {
+    return{
+      left: this.el.getBoundingClientRect().left,
+      right: this.el.getBoundingClientRect().right,
+      top: gameProp.screenHeight - this.el.getBoundingClientRect().top,
+      bottom:  gameProp.screenHeight - this.el.getBoundingClientRect().top - this.el.getBoundingClientRect().height
+    }
+  }
+  crash() {
+    if (hero.position().right > this.position().left && hero.position().left < this.position().right) {
+      this.npcCrash = true;
+    } else {
+      this.npcCrash = false;
+    }
+  }
+  talk() {
+    if (!this.talkOn && this.npcCrash) {
+      this.talkOn = true;
+      this.property.quest();
+      this.modal.classList.add('active');
+    } else if (this.talkOn) {
+      this.talkOn = false;
+      this.modal.classList.remove('active');
+    }
+  }
+}
+
 class Stage {
   constructor() {
     this.level = 0;
     this.isStart = false;
-    this.stageStart();
+    // this.stageStart();
   }
-  stageStart() {
-    setTimeout(() => {
-      this.isStart = true;
-      this.stageGuide(`START LEVEL ${this.level+1}`);
-      this.callMonster();
-    }, 2000);
-  }
+  // stageStart() {
+  //   setTimeout(() => {
+  //     this.isStart = true;
+  //     this.stageGuide(`START LEVEL ${this.level+1}`);
+  //     this.callMonster();
+  //   }, 2000);
+  // }
   stageGuide(text) {
     this.parentNode = document.querySelector('.game_app');
     this.textBox = document.createElement('div');
@@ -31,17 +83,28 @@ class Stage {
     }
   }
   clearCheck() {
-    if (allMonsterComProp.arr.length === 0 && this.isStart) {
-      this.isStart = false;
-      this.level++;
-      if (this.level < stageInfo.monster.length) {
-        this.stageGuide('CLEAR!');
-        this.stageStart();
-        hero.heroUpgrade();
-      } else {
-        this.stageGuide('ALL CLEAR!');
+    stageInfo.callPosition.forEach( arr => {
+      if (hero.moveX >= arr && allMonsterComProp.arr.length === 0) {
+        this.stageGuide('곧 몬스터가 몰려옵니다!!!')
+        stageInfo.callPosition.shift(); //순서대로 첫번째 배열 삭제
+
+        setTimeout(() => {
+          this.callMonster();
+          this.level++;
+        }, 1000);
       }
-    }
+    })
+    // if (allMonsterComProp.arr.length === 0 && this.isStart) {
+    //   this.isStart = false;
+    //   this.level++;
+    //   if (this.level < stageInfo.monster.length) {
+    //     this.stageGuide('CLEAR!');
+    //     // this.stageStart();
+    //     hero.heroUpgrade();
+    //   } else {
+    //     this.stageGuide('ALL CLEAR!');
+    //   }
+    // }
   }
 }
 
@@ -104,7 +167,6 @@ class Hero {
           this.slideDown = true;
         }
         this.slideTime += 1;
-        console.log(this.slideTime);
       }
     }
 
@@ -168,8 +230,9 @@ class Hero {
   hitDamage() {
     this.realDamage = this.attackDamage - Math.round(Math.random() * this.attackDamage * 0.1);
   }
-  heroUpgrade() {
-    this.attackDamage += 5000;
+  heroUpgrade(upDamage) {
+    let damage = upDamage ?? 5000; //넘어온 값이 없으면 기본값 5000
+    this.attackDamage += damage;
   }
   updateExp(exp) {
     this.exp += exp;

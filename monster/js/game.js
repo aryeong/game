@@ -8,7 +8,8 @@ const key = {
     38 : 'up',
     39 : 'right',
     88 : 'attack',
-    67 : 'slide'
+    67 : 'slide',
+    13 : 'enter'
   }
 }
 //대량의 몬스터 생성
@@ -29,7 +30,8 @@ const stageInfo = {
     {defaultMon: greenMon, bossMon: greenMonBoss},
     {defaultMon: yellowMon, bossMon: yellowMonBoss},
     {defaultMon: pinkMon, bossMon: pinkMonBoss},
-  ]
+  ],
+  callPosition: [1000, 5000, 9000]
 }
 const gameProp = {
   screenWidth : window.innerWidth,
@@ -40,6 +42,9 @@ const gameProp = {
 const renderGame = () => {
   hero.keyMotion();
   setGameBackground();
+  npcOne.crash();
+  npcTwo.crash(); // 배열 이용하여 모든 npc 담고 구현해볼것
+
   bulletComProp.arr.forEach((arr, i) => {
     arr.moveBullet(); // 검 움직이기
   })
@@ -68,6 +73,11 @@ const windowEvent = () => {
   window.addEventListener('keydown', e => {
     // console.log(key.keyValue[e.which]);
     if (!gameProp.gameOver) key.keyDown[key.keyValue[e.which]] = true;
+
+    if (key.keyDown['enter']) {
+      npcOne.talk();
+      npcTwo.talk(); // 배열 이용하여 모든 npc 담고 구현해볼것
+    }  
   });
   window.addEventListener('keyup', e => {
     // console.log(key.keyValue[e.which]);
@@ -88,15 +98,20 @@ const loadImg = () => {
 }
 
 let hero;
+let npcOne;
+let npcTwo; //인스턴스
+
 const init = () => {
   hero = new Hero('.hero');
   stageInfo.stage = new Stage();
+  npcOne = new Npc(levelQuest);
+  npcTwo = new Npc(levelQuestTwo);
 
   // allMonsterComProp.arr[0] = new Monster(greenMonBoss, gameProp.screenWidth + 700);
   // allMonsterComProp.arr[1] = new Monster(yellowMonBoss, gameProp.screenWidth + 1400);
   // allMonsterComProp.arr[2] = new Monster(pinkMonBoss, gameProp.screenWidth + 2100);
-
   // allMonsterComProp.arr[1] = new Monster(1500, 15000);
+  
   loadImg();  // 이미지가 미리 로드되어 깜빡거림없이 처리됨
   windowEvent();
   renderGame();

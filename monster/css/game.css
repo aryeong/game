@@ -9,6 +9,11 @@
 }
 .stage_box {position: absolute; left: 50%; top: 50%; z-index: 190; transform: translate(-50%, -50%); color: white; font-size: 90px; white-space: nowrap; animation: stageStart 1.5s; animation-fill-mode: both;}
 
+
+@keyframes hero_idle {
+	from {background-position-x: 0px;}
+	to {background-position-x: -1498px;}
+}
 @keyframes hero_run {
 	from {background-position-x: 0px;}
 	to {background-position-x: -1498px;}
@@ -102,8 +107,23 @@
 .game_over p {display: flex; align-items:center; justify-content: center; height: 100%; font-size: 150px; color: white;}
 
 
-@keyframes hero_idle {
-	from {background-position-x: 0px;}
-	to {background-position-x: -1498px;}
+@keyframes npc_idle {
+	from { background-position: 0px;}
+	to { background-position: -1498px;}
 }
 
+.npc_box {position:absolute; left: 400px; bottom: 0; z-index: 90; width: 150px; height:182px;}
+.npc_box .npc {height: 100%; background-image: url('../../../lib/images/robot_idle.png'); background-size: 1498px 182px; animation: npc_idle .7s infinite steps(10);}
+
+.npc_box .talk_box {position: absolute; left: 60px; bottom: 105%; width: 150px; color: #222; background-color: #f1f1f1; border: 2px solid #555; border-radius: 20px;}
+.npc_box .talk_box p {padding: 10px;}
+.npc_box .talk_box span {display: block; color: #bf0000; text-align: right; font-size: 14px;}
+
+.quest_modal {display: none; position: absolute; left:0; top: 0; right: 0; bottom: 0; z-index: 210; background: rgba(0, 0, 0, .7);}
+.quest_modal.active {display: block;}
+.quest_modal .inner_box {position: absolute; left: 50%; top: 50%; z-index: 10; width: 700px; transform: translate(-50%, -50%); padding:40px 10px; box-sizing: border-box; background-color: #fff; border:10px solid #8793eb; border-radius: 10px;}
+.quest_modal .inner_box .close {position: absolute; right: 10px; bottom: 5px; color: #bf0000;}
+
+.quest_talk .npc_img {float: left; width: 10%;}
+.quest_talk p {float: left; width: 90%; padding-left: 20px; color: #222; font-size: 20px;}
+.quest_talk p span {color: red;}
