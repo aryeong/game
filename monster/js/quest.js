@@ -25,7 +25,7 @@ const levelQuest = {
 
     let text = 
     `<figure class="npc_img">
-    <img src="../../lib/images/npc.png" alt="">
+    <img src="../images/npc.png" alt="">
     </figure>
     <p>${messageState}</p>`;
     const modalInner = document.querySelector('.quest_modal .inner_box .quest_talk');
@@ -61,7 +61,7 @@ const levelQuestTwo = {
     
     let text = 
     `<figure class="npc_img">
-    <img src="../../lib/images/npc.png" alt="">
+    <img src="../images/npc.png" alt="">
     </figure>
     <p>${messageState}</p>`;
     const modalInner = document.querySelector('.quest_modal .inner_box .quest_talk');

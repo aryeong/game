@@ -30,8 +30,9 @@ const stageInfo = {
     {defaultMon: greenMon, bossMon: greenMonBoss},
     {defaultMon: yellowMon, bossMon: yellowMonBoss},
     {defaultMon: pinkMon, bossMon: pinkMonBoss},
+    {defaultMon: pinkMon, bossMon: zombieKing},
   ],
-  callPosition: [1000, 5000, 9000]
+  callPosition: [1000, 5000, 9000, 12000]
 }
 const gameProp = {
   screenWidth : window.innerWidth,
@@ -90,7 +91,7 @@ const windowEvent = () => {
 }
 
 const loadImg = () => {
-  const preLoadImgSrc = ['../../lib/images/ninja_attack.png', '../../lib/images/ninja_run.png'];
+  const preLoadImgSrc = ['./images/ninja_attack.png', './images/ninja_run.png', './images/ninja_slide.png'];
   preLoadImgSrc.forEach(arr => {
     const img = new Image(); //이미지 객체에 인스턴스 생성
     img.src = arr; 
