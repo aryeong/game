@@ -32,7 +32,8 @@ const stageInfo = {
     {defaultMon: pinkMon, bossMon: pinkMonBoss},
     {defaultMon: pinkMon, bossMon: zombieKing},
   ],
-  callPosition: [1000, 5000, 9000, 12000]
+  callPosition: [1000, 5000, 9000, 12000],
+  npc: [levelQuest, levelQuestTwo]
 }
 const gameProp = {
   screenWidth : window.innerWidth,
@@ -78,7 +79,7 @@ const windowEvent = () => {
     if (key.keyDown['enter']) {
       npcOne.talk();
       npcTwo.talk(); // 배열 이용하여 모든 npc 담고 구현해볼것
-    }  
+    }
   });
   window.addEventListener('keyup', e => {
     // console.log(key.keyValue[e.which]);

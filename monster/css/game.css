@@ -41,6 +41,11 @@
 .hero_box .hero {height: 100%; background-image: url('../images/ninja_idle.png'); background-size: 1498px 182px; animation: hero_idle 0.7s infinite steps(10);}
 .hero_box .hero.flip {transform: rotateY(180deg);}
 .hero_box .hero.run, .hero_box .hero.run.attack {height: 100%; background-image: url('../images/ninja_run.png'); background-size: 1498px 182px; animation: hero_run 0.7s infinite steps(10);}
+
+.hero_box .hero.jump, .hero_box .hero.run.jump, .hero_box .hero.run.attack.jump {
+	transform: translateY(-300px);
+}
+
 .hero_box .hero.attack {height: 100%; background-image: url('../images/ninja_attack.png'); background-size: 1498px 182px; animation: hero_attack 0.7s 1 steps(10);}
 .hero_box .hero.crash {background-image: url(../images/ninja_crash.png); background-size: 299px 182px; animation: hero_crash 0.4s 1 steps(2);}
 .hero_box .hero.dead {background-image: url(../images/ninja_dead.png); background-size: 150px 182px; animation: none; transform: rotate(100deg);}

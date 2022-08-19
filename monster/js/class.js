@@ -144,6 +144,12 @@ class Hero {
       this.moveX = this.moveX + this.speed;
     }
 
+    if (key.keyDown['up']) {
+      this.el.classList.add('jump');
+    } else if(!key.keyDown['up']) {
+      this.el.classList.remove('jump');
+    }
+
     if (key.keyDown['attack']) {
       if (!bulletComProp.launch) {
         this.el.classList.add('attack');
