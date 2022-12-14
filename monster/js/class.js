@@ -84,7 +84,7 @@ class Stage {
   }
   clearCheck() {
     stageInfo.callPosition.forEach( arr => {
-      if (hero.moveX >= arr && allMonsterComProp.arr.length === 0) {
+      if (hero.moveX >= arr && allMonsterComProp.arr.length === 0) { //몬스터 소환 거리보다 크거나 모든 몬스터를 사냥했을 경우
         this.stageGuide('곧 몬스터가 몰려옵니다!!!')
         stageInfo.callPosition.shift(); //순서대로 첫번째 배열 삭제
 

@@ -16,6 +16,9 @@ const key = {
 const allMonsterComProp = {
   arr : []
 }
+const npcProp = {
+  arr : []
+}
 const bulletComProp = {
   launch: false, //검 던졌는지 체크
   arr : []
@@ -33,7 +36,10 @@ const stageInfo = {
     {defaultMon: pinkMon, bossMon: zombieKing},
   ],
   callPosition: [1000, 5000, 9000, 12000],
-  npc: [levelQuest, levelQuestTwo]
+  npc: [
+    {npcNum: 'npcOne', questNum: levelQuest}, 
+    {npcNum: 'npcTwo', questNum: levelQuestTwo}
+  ]
 }
 const gameProp = {
   screenWidth : window.innerWidth,
@@ -44,9 +50,11 @@ const gameProp = {
 const renderGame = () => {
   hero.keyMotion();
   setGameBackground();
-  npcOne.crash();
-  npcTwo.crash(); // 배열 이용하여 모든 npc 담고 구현해볼것
-
+  // npcOne.crash();
+  // npcTwo.crash(); // 배열 이용하여 모든 npc 담고 구현해볼것
+  npcProp.arr.forEach((arr, i)=> {
+    arr.crash();
+  })
   bulletComProp.arr.forEach((arr, i) => {
     arr.moveBullet(); // 검 움직이기
   })
@@ -77,8 +85,11 @@ const windowEvent = () => {
     if (!gameProp.gameOver) key.keyDown[key.keyValue[e.which]] = true;
 
     if (key.keyDown['enter']) {
-      npcOne.talk();
-      npcTwo.talk(); // 배열 이용하여 모든 npc 담고 구현해볼것
+      // npcOne.talk();
+      // npcTwo.talk(); // 배열 이용하여 모든 npc 담고 구현해볼것
+      npcProp.arr.forEach((arr, i)=> {
+        arr.talk();
+      })
     }
   });
   window.addEventListener('keyup', e => {
@@ -100,14 +111,18 @@ const loadImg = () => {
 }
 
 let hero;
-let npcOne;
-let npcTwo; //인스턴스
+// let npcOne;
+// let npcTwo; //인스턴스
 
 const init = () => {
   hero = new Hero('.hero');
   stageInfo.stage = new Stage();
-  npcOne = new Npc(levelQuest);
-  npcTwo = new Npc(levelQuestTwo);
+  // npcOne = new Npc(levelQuest);
+  // npcTwo = new Npc(levelQuestTwo);
+
+  for (let i = 0; i <=1; i++) {
+    npcProp.arr[i] = new Npc(stageInfo.npc[i].questNum);
+  }
 
   // allMonsterComProp.arr[0] = new Monster(greenMonBoss, gameProp.screenWidth + 700);
   // allMonsterComProp.arr[1] = new Monster(yellowMonBoss, gameProp.screenWidth + 1400);

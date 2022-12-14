@@ -10,16 +10,16 @@ const levelQuest = {
     }
 
     let messageState = '';
-    if (!npcOne.questStart) {
+    if (!stageInfo.npc[0].npcNum.questStart) {
       messageState = message.start;
-      npcOne.questStart = true;
-    } else if (npcOne.questStart && !npcOne.questEnd && hero.level < 5) {
+      stageInfo.npc[0].npcNum.questStart = true;
+    } else if (stageInfo.npc[0].npcNum.questStart && !stageInfo.npc[0].npcNum.questEnd && hero.level < 5) {
       messageState = message.ing;
-    } else if (npcOne.questStart && !npcOne.questEnd && hero.level >= 5) {
+    } else if (stageInfo.npc[0].npcNum.questStart && !stageInfo.npc[0].npcNum.questEnd && hero.level >= 5) {
       messageState = message.suc;
-      npcOne.questEnd = true;
+      stageInfo.npc[0].npcNum.questEnd = true;
       hero.heroUpgrade(50000);
-    } else if (npcOne.questStart && npcOne.questEnd) {
+    } else if (stageInfo.npc[0].npcNum.questStart && stageInfo.npc[0].npcNum.questEnd) {
       messageState = message.end;
     }
 
@@ -46,16 +46,16 @@ const levelQuestTwo = {
     }
 
     let messageState = '';
-    if (!npcTwo.questStart) {
+    if (!stageInfo.npc[1].npcNum.questStart) {
       messageState = message.start;
-      npcTwo.questStart = true;
-    } else if (npcTwo.questStart && !npcTwo.questEnd && hero.level < level) {
+      stageInfo.npc[1].npcNum.questStart = true;
+    } else if (stageInfo.npc[1].npcNum.questStart && !stageInfo.npc[1].npcNum.questEnd && hero.level < level) {
       messageState = message.ing;
-    } else if (npcTwo.questStart && !npcTwo.questEnd && hero.level >= level) {
+    } else if (stageInfo.npc[1].npcNum.questStart && !stageInfo.npc[1].npcNum.questEnd && hero.level >= level) {
       messageState = message.suc;
-      npcTwo.questEnd = true;
+      stageInfo.npc[1].npcNum.questEnd = true;
       hero.heroUpgrade(70000);
-    } else if (npcTwo.questStart && npcTwo.questEnd) {
+    } else if (stageInfo.npc[1].npcNum.questStart && stageInfo.npc[1].npcNum.questEnd) {
       messageState = message.end;
     }
     
